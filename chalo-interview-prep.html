@@ -1,0 +1,328 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chalo Viva Prep</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: single reading column, sticky toolbar, Part A reference, Part B accordion question bank */
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --fg:#1d2420; --muted:#5b665f; --line:#d9ded8;
+  --accent:#0f6b5c; --accent-soft:#dff0ec; --star:#b86a00; --code:#eef1ec;
+  --font-body:"Source Serif 4",Georgia,serif; --font-ui:"IBM Plex Sans",system-ui,sans-serif; --font-mono:"IBM Plex Mono",Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121715; --surface:#1a211e; --fg:#e6ebe7; --muted:#9aa89f; --line:#2c3631;
+  --accent:#5fcab4; --accent-soft:#1c3530; --star:#f0b45a; --code:#222b27; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121715; --surface:#1a211e; --fg:#e6ebe7; --muted:#9aa89f; --line:#2c3631;
+  --accent:#5fcab4; --accent-soft:#1c3530; --star:#f0b45a; --code:#222b27; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:17px/1.65 var(--font-body);margin:0}
+.wrap{max-width:820px;margin:0 auto;padding-block:32px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3,.ui{font-family:var(--font-ui)}
+h1{font-size:2.1rem;line-height:1.15;margin:0 0 8px;text-wrap:balance}
+h2{font-size:1.45rem;margin:48px 0 12px;padding-top:16px;border-top:2px solid var(--line);text-wrap:balance}
+h3{font-size:1.05rem;margin:28px 0 10px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+p,li{max-width:68ch}
+a{color:var(--accent)}
+code{font:.85em var(--font-mono);background:var(--code);padding:1px 5px;border-radius:4px}
+.lede{color:var(--muted);font-size:1rem}
+.toc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 20px 8px 36px;font-family:var(--font-ui);font-size:.93rem}
+.toc ol{padding-left:18px}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font:.9rem/1.45 var(--font-ui)}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft);font-weight:600}
+tr:last-child td{border-bottom:0}
+pre{font:.82rem/1.45 var(--font-mono);background:var(--code);padding:14px;border-radius:8px;overflow-x:auto;margin:0}
+.hint{font:.8rem var(--font-ui);color:var(--muted);margin:6px 0}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+button{font:600 .85rem var(--font-ui);min-height:44px;padding:0 16px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+button[aria-pressed="true"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:8px;margin:8px 0}
+summary{cursor:pointer;padding:12px 16px;font:600 .98rem/1.4 var(--font-ui);list-style:none;min-height:44px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;width:1.2em;color:var(--accent)}
+details[open]>summary::before{content:"\2212"}
+.star{color:var(--star)}
+.ans{padding:0 16px 14px 36px}
+.ans p{margin:8px 0}
+.fu{font-style:italic;color:var(--muted)}
+.fu b{font-style:normal;font-family:var(--font-ui);font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.diagram{min-width:620px}
+@media (prefers-reduced-motion:no-preference){details{transition:border-color .15s}details[open]{border-color:var(--accent)}}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600&family=Source+Serif+4:wght@400;600&display=swap">
+
+</head><body>
+<div class="wrap">
+<h1>Chalo viva prep</h1>
+<p class="lede">Built from the repository: <code>SPEC.md</code> (v0.2), <code>docs/DECISIONS.md</code>, <code>docs/PROGRESS.md</code> and the git history at commit <code>5ec53d8</code> on branch <code>m14-layout</code> (151 commits, milestones M0 to M14). Test counts come from the milestone table in SPEC section 13.1. Adjust any answer about your own role to what you actually did.</p>
+
+<nav class="toc" aria-label="Contents">
+<ol>
+<li><a href="#a">Part A: understand the project</a>
+<ol>
+<li><a href="#a1">The 2-minute pitch</a></li>
+<li><a href="#a2">Architecture and request flows</a></li>
+<li><a href="#a3">Features by milestone</a></li>
+<li><a href="#a4">Data model and algorithms</a></li>
+<li><a href="#a5">Tech-stack decisions</a></li>
+<li><a href="#a6">The spec-driven process</a></li>
+<li><a href="#a7">Testing and CI</a></li>
+<li><a href="#a8">Deployment, security and privacy</a></li>
+<li><a href="#a9">Hard problems and how they were solved</a></li>
+<li><a href="#a10">Limitations and next steps</a></li>
+<li><a href="#a11">Glossary</a></li>
+</ol></li>
+<li><a href="#b">Part B: question bank</a> (★ marks the most likely questions)</li>
+</ol>
+</nav>
+
+<h2 id="a">Part A: understand the project</h2>
+
+<h2 id="a1">1. The 2-minute pitch</h2>
+<p><b>Chalo</b> is a group-trip app for India. A group plans a trip, tracks every shared expense, keeps tickets and bookings in one place, shares photos that sort themselves, and turns those photos into Instagram-ready collages and reels.</p>
+<p>Three ideas make it more than a Splitwise clone:</p>
+<ul>
+<li><b>Fair tax sharing.</b> On a restaurant bill, tax, service charge, tip and discount are shared in proportion to what each person actually ate, down to the paisa.</li>
+<li><b>Offline first.</b> Everything is written to the phone first and synced later, so a ticket opens in airplane mode and an expense added on a mountain road is not lost.</li>
+<li><b>Private by design.</b> Face matching runs on the device, only for members who opt in. No photo goes to a third-party AI service.</li>
+</ul>
+<p>It runs entirely on free tiers (Supabase, Vercel, GitHub Actions). One TypeScript codebase ships as a PWA and as an Android APK through Capacitor. It was built milestone by milestone against a written specification, with each requirement tied to a test.</p>
+
+<h2 id="a2">2. Architecture and request flows</h2>
+<p class="hint">Scroll the diagram sideways on a phone →</p>
+<div class="scroll"><pre class="diagram">  apps/web  (React 19 PWA, also wrapped by Capacitor for Android)
+  ┌──────────────────────────────────────────────────────────┐
+  │  UI screens ── feature modules ── data layer              │
+  │                      │                  │                 │
+  │             packages/core           Dexie (IndexedDB)     │
+  │         (pure TS: money, split,     + ordered outbox      │
+  │          balances, upi, time)                             │
+  └──────────────┬───────────────────────────┬───────────────┘
+                 │ HTTPS (RPC, REST)          │ WebSocket
+  ┌──────────────▼───────────────────────────▼───────────────┐
+  │  Supabase: Postgres + Row Level Security, Auth,           │
+  │            Storage, Realtime                              │
+  └──────────────────────────────────────────────────────────┘
+  Hosting: Vercel (web).  CI: GitHub Actions.</pre></div>
+
+<h3>Flow 1: add an expense (works offline)</h3>
+<ol>
+<li>The form validates input with Zod. <code>packages/core</code> computes shares with <code>allocate()</code>; the UI does no money arithmetic.</li>
+<li>The row is written to Dexie and an operation is appended to the <code>outbox</code>. The screen updates at once.</li>
+<li>When online, the sync engine drains the outbox into the <code>save_expense</code> RPC. The server checks that payers and shares sum to the total, then stores the row.</li>
+<li>Realtime pushes the change to the other phones.</li>
+</ol>
+<h3>Flow 2: sync pull</h3>
+<ol>
+<li>On start, reconnect and focus, the client asks for rows with <code>updated_at</code> later than its last pull, per table and group, including soft-deleted rows as tombstones.</li>
+<li>A Realtime subscription per group delivers live changes between pulls.</li>
+</ol>
+<h3>Flow 3: photo upload and auto-tagging</h3>
+<ol>
+<li>The browser resizes the image on a canvas and reads EXIF with <code>exifr</code> (time, optional location).</li>
+<li>The file goes to Supabase Storage; the row records the trip day and place.</li>
+<li>The uploader's device detects faces and compares them only with the fingerprints of members who consented. Unmatched face data is discarded immediately.</li>
+</ol>
+
+<h2 id="a3">3. Features by milestone</h2>
+<div class="scroll"><table>
+<tr><th>Milestone</th><th>What it delivers</th><th>Key requirement IDs</th></tr>
+<tr><td>M0</td><td>Monorepo, strict TypeScript, CI, PWA skeleton, live hello app</td><td>DEP-001 to DEP-006</td></tr>
+<tr><td>M1</td><td>Google and magic-link sign-in, groups, invite links, sync backbone, row-level security</td><td>AUT, GRP, DAT, SYN</td></tr>
+<tr><td>M2</td><td>Money engine, expenses, balances, simplify debts, UPI settle-up</td><td>EXP-001 to 005, BAL-001 to 005</td></tr>
+<tr><td>M3</td><td>Itemised bills with fair tax, "Explain my share"</td><td>TAX-001 to 008</td></tr>
+<tr><td>M4</td><td>Collaborative itinerary, map, polls</td><td>ITN-001 to 010</td></tr>
+<tr><td>M5</td><td>Bookings vault that opens offline</td><td>BKG-001 to 006</td></tr>
+<tr><td>M6</td><td>Photos with day, place and uploader filters, storage guard</td><td>PHO-001 to 009</td></tr>
+<tr><td>M7</td><td>Opt-in face matching, withdrawal removes all data</td><td>FAC-001 to 010</td></tr>
+<tr><td>M8</td><td>Receipt scanning with on-device OCR</td><td>OCR-001 to 004</td></tr>
+<tr><td>M9</td><td>Instagram studio: six templates and a reel</td><td>IGS-001 to 010</td></tr>
+<tr><td>M10</td><td>Android APK, privacy, hardening</td><td>PRV, NFR</td></tr>
+<tr><td>M11</td><td>All P2 items</td><td>GRP-008, EXP-009, EXP-010 and others</td></tr>
+<tr><td>M12</td><td>Trip playlist with votes</td><td>PLY-001 to 009</td></tr>
+<tr><td>M13, M14</td><td>Light/dark theme, bottom tab bar layout, trip dashboard</td><td>UX-003, 004, 006, 007</td></tr>
+</table></div>
+
+<h2 id="a4">4. Data model and algorithms</h2>
+<ul>
+<li><b>Money is integers in paise.</b> No floats anywhere. Intermediate products use <code>BigInt</code>.</li>
+<li><b><code>allocate(total, weights)</code></b> splits an integer exactly in proportion to weights and hands out the leftover paise deterministically, so the parts always sum to the total.</li>
+<li><b>Balance</b> = paid − owed + settlements paid − settlements received. Over all members the balances sum to exactly zero.</li>
+<li><b>Simplify debts:</b> repeatedly match the largest debtor with the largest creditor (ties by member id). At most n − 1 transfers.</li>
+<li><b>Itemised bill algorithm (TAX-003):</b>
+<ol>
+<li>Spread discounts across items in proportion to item amounts.</li>
+<li>Split each item among its assignees by weight, tracked per tax class.</li>
+<li>Each person's total of items becomes their weight for sharing service charge, tip and untyped tax. A tax tied to a class uses only that class's amounts.</li>
+<li>Charges with allocation "equal" use weight 1 for everyone who has any item.</li>
+<li>Owed = items + charge shares. A breakdown is kept for "Explain my share".</li>
+</ol></li>
+<li><b>UPI link:</b> <code>upi://pay?pa=…&amp;pn=…&amp;am=…&amp;cu=INR&amp;tn=…</code>. The app records a payment only after the user confirms it went through.</li>
+<li><b>Face match:</b> cosine similarity of embeddings; accept the best match only if it passes the threshold and beats the second best by at least 0.05. Each member is tagged at most once per photo.</li>
+<li><b>Conflicts:</b> last write wins by server <code>updated_at</code> for most tables. Expenses carry a <code>version</code>; a stale one is rejected with <code>VERSION_CONFLICT</code> and the user chooses "Keep theirs" or "Apply mine on top".</li>
+</ul>
+
+<h2 id="a5">5. Tech-stack decisions</h2>
+<div class="scroll"><table>
+<tr><th>Choice</th><th>Why</th></tr>
+<tr><td>Supabase (Postgres, Auth, Storage, Realtime)</td><td>Free tier, no custom server, Row Level Security enforces who sees which group at the database.</td></tr>
+<tr><td>React PWA + Capacitor</td><td>One codebase for web and Android; iOS users install the PWA.</td></tr>
+<tr><td>Dexie (IndexedDB) + outbox</td><td>Offline-first writes with idempotent replay.</td></tr>
+<tr><td>pnpm monorepo, <code>packages/core</code></td><td>Pure, UI-free logic that is easy to test to 100% line coverage.</td></tr>
+<tr><td>Zod</td><td>Validates every external input: forms, RPC payloads, parsed files.</td></tr>
+<tr><td>Leaflet + OpenStreetMap</td><td>Google Maps is paid; the project rule is zero budget.</td></tr>
+<tr><td>On-device face model, tesseract.js</td><td>Photos never leave the device for AI; behind a <code>FaceEngine</code> interface so the model can be swapped.</td></tr>
+<tr><td>Vercel (Hobby)</td><td>Free Git-based deploys. Hosting moved here from Cloudflare; the change is recorded in DECISIONS.md.</td></tr>
+<tr><td>Share sheet, not the Instagram API</td><td>The official API needs Business or Creator accounts; the personal-account API closed on 4 Dec 2024.</td></tr>
+</table></div>
+
+<h2 id="a6">6. The spec-driven process</h2>
+<ul>
+<li>A written specification (<code>SPEC.md</code>) defines requirement IDs, priorities (P0 to P3), milestones with a Definition of Done, and normative test vectors (Appendix A).</li>
+<li>Per milestone: re-read the rows, write a plan in <code>docs/PROGRESS.md</code>, write core tests first, implement, run lint, typecheck, unit, property and SQL tests, deploy to staging, verify the DoD, then tag.</li>
+<li>Commits are Conventional Commits that carry requirement IDs, for example <code>feat(UX-004): …</code>. A traceability test checks the IDs against the spec.</li>
+<li>Where the spec was silent, the choice went into <code>docs/DECISIONS.md</code>; spec changes were proposed in <code>docs/SPEC_CHANGES.md</code>, never edited silently.</li>
+<li>Stop-and-ask rules: new paid service, new personal data, face or location handling changes, a test vector that looks wrong, destructive production actions.</li>
+</ul>
+
+<h2 id="a7">7. Testing and CI</h2>
+<div class="scroll"><table>
+<tr><th>Layer</th><th>Tool</th><th>What it proves</th></tr>
+<tr><td>Unit</td><td>Vitest</td><td>Core engine reproduces every Appendix A vector; 1018 tests at M12.</td></tr>
+<tr><td>Property</td><td>fast-check</td><td>Shares sum to the total, balances sum to zero, results ignore input order.</td></tr>
+<tr><td>SQL</td><td>pgTAP via Supabase CLI</td><td>Row Level Security isolation between groups; 806 assertions at M12.</td></tr>
+<tr><td>End to end</td><td>Playwright</td><td>Two-browser sync, offline flows, TV-3 and TV-4 through the UI; 80 tests at M12.</td></tr>
+<tr><td>Static</td><td>ESLint (jsx-a11y), TypeScript strict</td><td>Accessibility and type errors fail the build.</td></tr>
+<tr><td>Manual</td><td>Checklist in <code>docs/MANUAL_TESTS.md</code></td><td>Real-phone items: share sheet, reminders, face accuracy on real faces.</td></tr>
+</table></div>
+<p>GitHub Actions runs the checks on every pull request. A keep-alive workflow stops the free Supabase projects from pausing.</p>
+
+<h2 id="a8">8. Deployment, security and privacy</h2>
+<ul>
+<li><b>Environments:</b> separate staging and production Supabase projects; migrations are applied to both. Applied migrations are never edited.</li>
+<li><b>Secrets:</b> never committed; <code>.env.example</code> lists names only. The service-role key lives only as a Supabase secret, used by the single <code>delete-account</code> Edge Function.</li>
+<li><b>Access control:</b> Row Level Security on every table; writes go through RPCs that check the caller can write to the group.</li>
+<li><b>Content Security Policy</b> with no inline styles; extended only when needed (<code>'wasm-unsafe-eval'</code> for OCR, <code>media-src blob:</code> for reels).</li>
+<li><b>Signed storage URLs</b> expire within one hour.</li>
+<li><b>Privacy:</b> no analytics, ads or trackers; face data and photo location are separate optional consents; withdrawing deletes the fingerprint and all automatic tags; account deletion turns the member into "Former member" so balances stay valid. A plain-language privacy page follows India's DPDP Act 2023 intent and still needs a legal review before a public launch.</li>
+</ul>
+
+<h2 id="a9">9. Hard problems and how they were solved</h2>
+<ul>
+<li><b>Paise that do not add up.</b> Solved with integer money and one <code>allocate()</code> used everywhere, protected by property tests.</li>
+<li><b>Two people editing one bill.</b> Version check on the server and a "Review changes" screen instead of silent overwrite.</li>
+<li><b>Offline tests flaking.</b> The e2e suite waits for a <code>readyForOffline</code> signal before cutting the connection, and a scattered timeout is rerun alone before it is treated as a bug.</li>
+<li><b>Capacitor plugin hang.</b> Returning a plugin object from an async function made the promise never resolve, because plugins look "thenable". The code never returns a plugin from an async function.</li>
+<li><b>Face accuracy without a real test set.</b> The face code sits behind an interface, was verified with a stand-in model, and ships a tuning procedure and debug screen (<code>docs/FACE_TUNING.md</code>).</li>
+<li><b>Reels in the browser.</b> Canvas plus MediaRecorder, choosing MP4 or WebM by <code>isTypeSupported</code>, with a lazily loaded FFmpeg WebAssembly fallback.</li>
+<li><b>Free-tier pausing.</b> A scheduled keep-alive workflow.</li>
+</ul>
+
+<h2 id="a10">10. Limitations and next steps</h2>
+<ul>
+<li>Face threshold (0.90) is a placeholder until it is tuned on real photos in low light and varied skin tones.</li>
+<li>OCR accuracy on crumpled receipts is unverified.</li>
+<li>Android share sheet, reminders and Spotify links are manual checks on a real phone.</li>
+<li>iOS has no native app, only the installed PWA.</li>
+<li>Supabase free limits (about 500 MB database, 1 GB storage) cap photo volume; the storage guard warns before the limit.</li>
+<li>Next: privacy review before launch, Instagram direct publishing for professional accounts (P3, not started), more languages.</li>
+</ul>
+
+<h2 id="a11">11. Glossary</h2>
+<div class="scroll"><table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Paise</td><td>Minor unit of the rupee; 100 paise = ₹1. All amounts are stored in it.</td></tr>
+<tr><td>PWA</td><td>Progressive web app: installable, works offline through a service worker.</td></tr>
+<tr><td>Outbox</td><td>Ordered queue of local writes waiting to be sent to the server.</td></tr>
+<tr><td>RLS</td><td>Row Level Security: database rules deciding which rows a user may read or write.</td></tr>
+<tr><td>RPC</td><td>A server function called by the client, such as <code>save_expense</code>.</td></tr>
+<tr><td>Tombstone</td><td>A soft-deleted row kept so other devices learn about the deletion.</td></tr>
+<tr><td>Embedding</td><td>Numeric fingerprint of a face; not a picture.</td></tr>
+<tr><td>UPI</td><td>India's instant payment system; Chalo only opens the user's own UPI app.</td></tr>
+<tr><td>DoD</td><td>Definition of Done for a milestone.</td></tr>
+<tr><td>Test vector</td><td>A worked example in Appendix A the engine must reproduce exactly.</td></tr>
+<tr><td>Placeholder person</td><td>Someone named in expenses without an account, who can claim their identity later.</td></tr>
+</table></div>
+
+<h2 id="b">Part B: question bank</h2>
+<p class="lede">Tap a question to show the model answer and a follow-up.</p>
+<div class="bar" role="toolbar" aria-label="Question controls">
+<button id="starOnly" aria-pressed="false">★ only</button>
+<button id="openAll">Open all</button>
+<button id="closeAll">Close all</button>
+</div>
+
+<h3>Product and users</h3>
+<details data-star><summary><span class="star">★ </span>Give me the 2-minute pitch.</summary><div class="ans"><p>Chalo is a group-trip app for India. It tracks shared expenses with fair tax splitting, keeps tickets and bookings available offline, sorts a shared photo album by person, place and day, and builds Instagram collages and reels. It runs on free tiers only, as a PWA and an Android app from one codebase.</p><p class="fu"><b>Follow-up:</b> Which part was hardest? The itemised bill: tax and discounts must be shared fairly and add up to the paisa, under every input order.</p></div></details>
+<details data-star><summary><span class="star">★ </span>Who is it for and what problem does it solve?</summary><div class="ans"><p>Friend groups travelling in India. Today they juggle a spreadsheet, WhatsApp for tickets and a Google Drive for photos. Splitwise cannot share GST and service charge by what each person ordered, and nothing links expenses, plans, tickets and photos.</p><p class="fu"><b>Follow-up:</b> Why not just use Splitwise? It lacks proportional tax sharing, offline tickets, face-sorted photos and UPI settle-up in one place.</p></div></details>
+<details><summary>What are the non-goals?</summary><div class="ans"><p>Moving money, auto-posting to Instagram, booking tickets, in-app chat and anything that costs money. Chalo records settlements and opens the user's UPI app; it never holds funds.</p><p class="fu"><b>Follow-up:</b> Why no chat? An activity feed covers updates and keeps scope small.</p></div></details>
+
+<h3>Architecture</h3>
+<details data-star><summary><span class="star">★ </span>Walk me through the architecture.</summary><div class="ans"><p>A React PWA talks to Supabase. Inside the app, UI screens call feature modules, which use pure logic from <code>packages/core</code> and a local Dexie database with an outbox. Supabase provides Postgres with Row Level Security, Auth, Storage and Realtime. There is no custom server.</p><p class="fu"><b>Follow-up:</b> Why keep logic in a separate package? It has no UI or network dependency, so it is easy to test fully and cannot be bypassed by screen code (rule ARC-001).</p></div></details>
+<details data-star><summary><span class="star">★ </span>How does offline work?</summary><div class="ans"><p>Every write goes to Dexie first and into an ordered outbox with a client-generated id. The sync engine replays the outbox when online. Operations are idempotent, so a retry cannot duplicate a row. Pulls fetch rows changed since the last pull, including tombstones.</p><p class="fu"><b>Follow-up:</b> What if the replay fails? The operation stays visible with a retry button and is never dropped silently (SYN-005).</p></div></details>
+<details><summary>Why Supabase and not a custom backend?</summary><div class="ans"><p>Free tier, built-in auth and realtime, and Row Level Security puts the access rules in the database where they cannot be skipped. A custom server would add cost and operations work.</p><p class="fu"><b>Follow-up:</b> Any downside? Free projects pause after about a week idle, so a keep-alive workflow pings them.</p></div></details>
+<details><summary>Why a PWA plus Capacitor?</summary><div class="ans"><p>One TypeScript codebase serves browsers and an Android APK. Capacitor adds native share, filesystem and notifications. iOS users install the PWA.</p><p class="fu"><b>Follow-up:</b> Why no React Native? It would mean a second codebase and UI layer.</p></div></details>
+
+<h3>Money and algorithms</h3>
+<details data-star><summary><span class="star">★ </span>Why integers in paise instead of floats?</summary><div class="ans"><p>Floats cannot represent most decimals exactly, so shares drift by fractions and balances stop summing to zero. Integers make every total exact. Rates use basis points or decimal strings, and large intermediate products use <code>BigInt</code>.</p><p class="fu"><b>Follow-up:</b> How do you split ₹100 among three? <code>allocate</code> gives 3334, 3333, 3333 paise in a deterministic order; the sum is exactly 10000.</p></div></details>
+<details data-star><summary><span class="star">★ </span>Explain the fair tax algorithm.</summary><div class="ans"><p>First spread any discount over the items in proportion to their price. Then split each item among its assignees by weight, tracking tax class. Each person's item total becomes their weight for sharing service charge, tip and tax. A class-specific tax, such as alcohol tax, uses only that class. Charges marked "equal" use weight 1 per participant. The sum of owed amounts equals items plus signed charges exactly.</p><p class="fu"><b>Follow-up:</b> What if the printed total differs? Saving is blocked until it matches; under ₹5 the form offers a one-tap round-off line.</p></div></details>
+<details data-star><summary><span class="star">★ </span>How does debt simplification work and is it optimal?</summary><div class="ans"><p>Compute each member's net balance, then repeatedly match the largest debtor with the largest creditor, settling the smaller of the two. This yields at most n − 1 transfers. It is a greedy method, not guaranteed to give the minimum number of transfers in every case (that problem is NP-hard), but it is deterministic and good in practice.</p><p class="fu"><b>Follow-up:</b> Can users turn it off? Yes, a group setting shows pairwise amounts instead.</p></div></details>
+<details><summary>How do you handle multiple currencies?</summary><div class="ans"><p>The user enters a rate; the base total is the total times the rate, rounded half up, and base shares come from <code>allocate</code>. Balances use base amounts only. Fetching a rate from Frankfurter is optional and failure falls back to manual entry.</p><p class="fu"><b>Follow-up:</b> Why not auto-convert always? Network may be absent and rates differ from what the card charged.</p></div></details>
+<details><summary>How does the UPI settle-up avoid false payments?</summary><div class="ans"><p>The app opens the UPI link, and when the user returns it asks "Did the payment go through?". It records the settlement only on confirmation, because it cannot see the bank result.</p><p class="fu"><b>Follow-up:</b> Could someone lie? Yes, as with cash; any settlement can be deleted by members with write access.</p></div></details>
+
+<h3>Sync and conflicts</h3>
+<details data-star><summary><span class="star">★ </span>What happens when two people edit the same expense?</summary><div class="ans"><p>The server compares <code>base_version</code>. A stale write is rejected with <code>VERSION_CONFLICT</code>. The client keeps the local draft and opens a "Review changes" screen with "Keep theirs" or "Apply mine on top".</p><p class="fu"><b>Follow-up:</b> Why not last-write-wins for expenses? It would silently lose money data. Other tables use last-write-wins because edits are low stakes.</p></div></details>
+<details><summary>Why does the server not recompute shares?</summary><div class="ans"><p>The core engine is the single source of the arithmetic (ARC-002). The RPC only verifies that payers and shares sum to the total, which catches tampering or bugs without duplicating logic in SQL.</p><p class="fu"><b>Follow-up:</b> Is that a trust problem? Only group members with write access can call it, and the sums are enforced.</p></div></details>
+<details><summary>How are deletions synced?</summary><div class="ans"><p>Soft deletes. Deleted rows stay as tombstones, so every device learns of the deletion on its next pull.</p><p class="fu"><b>Follow-up:</b> Are tombstones kept forever? They are small; cleanup is a possible future job.</p></div></details>
+
+<h3>Security and privacy</h3>
+<details data-star><summary><span class="star">★ </span>How do you stop one group seeing another's data?</summary><div class="ans"><p>Row Level Security on every table, with policies based on group membership. 806 pgTAP assertions test the isolation. Writes go through RPCs that check <code>can_write</code>.</p><p class="fu"><b>Follow-up:</b> What about storage files? Paths start with the group id, and URLs are signed and expire within an hour.</p></div></details>
+<details data-star><summary><span class="star">★ </span>How is face data handled?</summary><div class="ans"><p>Opt-in only. A member consents, takes a selfie, and the device stores a numeric fingerprint, not an image. Matching runs on the uploader's device against consenting members only. Unmatched faces are discarded at once. Withdrawal deletes the fingerprint and all automatic tags. Non-consenting members can never be auto-tagged.</p><p class="fu"><b>Follow-up:</b> What if the model changes? Fingerprints from different <code>model_id</code>s are never compared; the member re-enrols.</p></div></details>
+<details><summary>What happens to data when a user deletes their account?</summary><div class="ans"><p>Profile and face data are removed. In each group the member becomes a "Former member" placeholder so expenses and balances stay correct. A single Edge Function with the service key, stored only as a secret, deletes the auth user.</p><p class="fu"><b>Follow-up:</b> Photos? The user chooses to keep or delete them.</p></div></details>
+<details><summary>How do you protect secrets?</summary><div class="ans"><p>No secrets or <code>.env</code> files in git. The client only has the public anon key. The service-role key exists only as a Supabase secret.</p><p class="fu"><b>Follow-up:</b> What if the anon key leaks? It is public by design; Row Level Security is what protects data.</p></div></details>
+
+<h3>Photos, OCR and Instagram</h3>
+<details><summary>How do photos sort themselves into days and places?</summary><div class="ans"><p>EXIF time is bucketed into trip days in the group's timezone, and optional EXIF location gives the place. Both are optional consents; the album works without them.</p><p class="fu"><b>Follow-up:</b> No EXIF? The photo falls back to upload time and can be edited.</p></div></details>
+<details data-star><summary><span class="star">★ </span>Why share through the share sheet instead of posting to Instagram?</summary><div class="ans"><p>The official API only works with Business or Creator accounts, and the personal-account API ended on 4 December 2024. Asking users for Instagram credentials would be unsafe. So Chalo renders the image or video and hands it to the phone's share sheet, with a download and copied caption as a fallback.</p><p class="fu"><b>Follow-up:</b> How are reels made? Canvas drawing recorded with MediaRecorder; FFmpeg WebAssembly converts WebM to MP4 only if needed.</p></div></details>
+<details><summary>How does receipt scanning work and why is it safe?</summary><div class="ans"><p>tesseract.js runs in the browser, so the photo never leaves the device. It produces an editable draft in the itemised form, and nothing saves without the user's review.</p><p class="fu"><b>Follow-up:</b> Accuracy? Unverified on crumpled receipts; that is why review is mandatory.</p></div></details>
+
+<h3>Testing and CI</h3>
+<details data-star><summary><span class="star">★ </span>How do you know the money maths is right?</summary><div class="ans"><p>Three layers: normative test vectors from Appendix A that must match to the paisa, property tests with fast-check for invariants (sums, non-negativity, order independence), and Playwright tests that reproduce the restaurant bills through the UI. Core has 100% line coverage.</p><p class="fu"><b>Follow-up:</b> What if a vector looked wrong? The working agreement says stop and ask, not edit it.</p></div></details>
+<details><summary>What does CI run?</summary><div class="ans"><p>Lint, typecheck, unit and property tests, SQL tests on a local Supabase stack, and the build. Merging needs green checks.</p><p class="fu"><b>Follow-up:</b> What was flaky? Offline browser tests; fixed by waiting for a ready signal before disconnecting.</p></div></details>
+<details><summary>What is not covered by automated tests?</summary><div class="ans"><p>Real-phone behaviour: Android share sheet, local notifications, music app links, face accuracy on real faces, receipt OCR on real receipts. These are recorded manual checks.</p><p class="fu"><b>Follow-up:</b> Is a P0 allowed without a test? No: it needs a test or a dated manual result.</p></div></details>
+
+<h3>Process</h3>
+<details data-star><summary><span class="star">★ </span>What is spec-driven development and how did you apply it?</summary><div class="ans"><p>Write the contract first, then build to it. Each requirement has an ID, a priority and a pass/fail criterion; milestones have a Definition of Done. Commits and tests carry the IDs, and a traceability test checks them against the spec. Decisions and spec changes are logged in separate files.</p><p class="fu"><b>Follow-up:</b> Did the spec change? Yes, through <code>SPEC_CHANGES.md</code>, from v0.1 to v0.2 and later, with the reason recorded.</p></div></details>
+<details data-star><summary><span class="star">★ </span>How did you use AI in the build?</summary><div class="ans"><p>Claude Code implemented milestones under a working agreement in <code>CLAUDE.md</code>: plan first, tests first for the core, small commits, stop-and-ask rules for cost, privacy and destructive actions. I set the scope, approved decisions and ran the manual checks. (Edit this answer to match your own account.)</p><p class="fu"><b>Follow-up:</b> How did you verify its output? Tests, the Definition of Done on staging, and reading the diffs.</p></div></details>
+<details><summary>Why one branch and pull request per milestone?</summary><div class="ans"><p>It keeps review small, makes each milestone tag a clean rollback point, and ties history to the plan.</p><p class="fu"><b>Follow-up:</b> Any force pushes? Never on <code>main</code>.</p></div></details>
+
+<h3>Failure scenarios</h3>
+<details data-star><summary><span class="star">★ </span>The phone is offline for two days. What happens?</summary><div class="ans"><p>Everything keeps working from Dexie; new expenses and photo metadata queue in the outbox and the status shows "N pending". Bookings opened once online stay available. On reconnect the outbox drains and the app pulls changes. Conflicting expense edits go to the review screen.</p><p class="fu"><b>Follow-up:</b> Photo uploads offline? They wait for a connection and run one at a time.</p></div></details>
+<details><summary>Supabase free project gets paused. What do you do?</summary><div class="ans"><p>Prevention is the keep-alive workflow. If it happens, restore from the dashboard; <code>docs/BACKUP.md</code> describes the backup routine. Local data is still in each device's Dexie store.</p><p class="fu"><b>Follow-up:</b> Could data be lost? Unsynced local writes survive in the outbox until sent.</p></div></details>
+<details><summary>A face is tagged wrongly. What now?</summary><div class="ans"><p>Any member can remove a tag, and people can always remove tags of themselves. Matches close to the threshold are marked "check this" for one-tap confirmation. The threshold can be tuned with the debug screen.</p><p class="fu"><b>Follow-up:</b> Can someone be tagged without consent? No; without consent there is no fingerprint to match.</p></div></details>
+<details><summary>What would you do with another month?</summary><div class="ans"><p>Tune the face threshold on real photos, run the legal privacy review, test on more real Android devices, add Hindi and other languages, and consider a native iOS build.</p><p class="fu"><b>Follow-up:</b> What would you cut? The stretch items, never the P0 money and privacy work.</p></div></details>
+</div>
+
+<script>
+(function(){
+  var items=[].slice.call(document.querySelectorAll('details'));
+  var star=document.getElementById('starOnly');
+  star.addEventListener('click',function(){
+    var on=star.getAttribute('aria-pressed')!=='true';
+    star.setAttribute('aria-pressed',on);
+    items.forEach(function(d){d.hidden=on&&!d.hasAttribute('data-star')});
+    document.querySelectorAll('h3').forEach(function(h){
+      var n=h.nextElementSibling,any=false;
+      while(n&&n.tagName==='DETAILS'){if(!n.hidden)any=true;n=n.nextElementSibling}
+      if(h.nextElementSibling&&h.nextElementSibling.tagName==='DETAILS')h.hidden=!any;
+    });
+  });
+  document.getElementById('openAll').addEventListener('click',function(){items.forEach(function(d){if(!d.hidden)d.open=true})});
+  document.getElementById('closeAll').addEventListener('click',function(){items.forEach(function(d){d.open=false})});
+})();
+</script>
+
+</body></html>
